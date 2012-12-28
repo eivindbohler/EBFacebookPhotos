@@ -169,7 +169,7 @@
 		837C2880168CF18200621C6B /* EBFriendsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBFriendsTableViewController.m; sourceTree = "<group>"; };
 		839764801680F5E000621378 /* libEBFacebookPhotos.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libEBFacebookPhotos.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		839764831680F5E000621378 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		839764871680F5E000621378 /* EBFacebookPhotos-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EBFacebookPhotos-Prefix.pch"; sourceTree = "<group>"; };
+		839764871680F5E000621378 /* EBFacebookPhotos-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "EBFacebookPhotos-Prefix.pch"; path = "EBFacebookPhotos/EBFacebookPhotos-Prefix.pch"; sourceTree = "<group>"; };
 		83976491168100F800621378 /* facebook-ios-sdk.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "facebook-ios-sdk.xcodeproj"; path = "Vendor/FacebookSDK/src/facebook-ios-sdk.xcodeproj"; sourceTree = "<group>"; };
 		839764D21681035700621378 /* FBSBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBSBJSON.h; sourceTree = "<group>"; };
 		839764D41681035700621378 /* FBSBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBSBJsonBase.h; sourceTree = "<group>"; };
