@@ -73,7 +73,7 @@
                                success:^(NSArray *albums) {
                                    [tableViewController setAlbums:albums];
                                } failure:^(NSError *error) {
-
+                                   NSLog(@"Error fetching albums: %@", error);
                                }];
 
 }

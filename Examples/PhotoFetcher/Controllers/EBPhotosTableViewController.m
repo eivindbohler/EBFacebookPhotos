@@ -79,7 +79,7 @@
                 } completion:nil];
             }
         } failure:^{
-
+            NSLog(@"Error fetching image with url %@", url);
         }];
     }
     

@@ -45,15 +45,15 @@
   cover_pid, created, description, edit_link, like_info, link, location,
   modified, modified_major, name, object_id, owner, owner_cursor, photo_count,
   place_id, type, video_count, visible, photos, cover_photo
- 
+
  All album properties except photos and cover_photo are built-in columns
  from the Facebook table 'album'.
  More info here: https://developers.facebook.com/docs/reference/fql/album
  If albumProperties is nil, all properties except cursors are returned.
- 
+
  The photos property is an array of Facebook photo objects.
  If photos is not a property in the albums array, the photo properties are ignored.
- 
+
  Photo properties are:
   aid, aid_cursor, album_object_id, album_object_id_cursor, backdated_time,
   backdated_time_granularity, can_backdate, can_delete, can_tag, caption,
@@ -61,11 +61,11 @@
   object_id, offline_id, owner, owner_cursor, page_story_id, pid, place_id,
   position, src, src_big, src_big_height, src_big_width, src_height, src_small,
   src_small_height, src_small_width, src_width, target_id, target_type
- 
+
  All photo properties are built-in columns from the Facebook table 'photo'.
  More info here: https://developers.facebook.com/docs/reference/fql/photo
  If photoProperties is nil, all properties except cursors are returned.
- 
+
  The cover_photo property is a Facebook photo object with the same properties
  as the ones specified in the photoProperties array.
  */
@@ -77,10 +77,10 @@
 /**
  Same method as myAlbumsWithAlbumProperties:photoProperties:success:failure:
  but returns the specified friends' albums instead of the user's albums.
- Each element in the friends array should be an NSString of the friend's uid.
+ Each element in the friends array should be a string of the friend's uid.
 
  If friends is nil, all the user's friends are queried.
- 
+
  Warning: use the album property photo with caution, as this has the potential
  of making the response and processing of the Facebook query rather slow.
  */
@@ -94,7 +94,7 @@
  Same method as albumsForFriends:albumProperties:photoProperties:success:failure:
  but with the addition of a dictionary where keys are album properties and values
  are strings or arrays of strings. The strings are treated case insensitively.
- 
+
  Example of usage: @{@"location": @[@"London", @"San Francisco"]}
  */
 + (void)albumsForFriends:(NSArray *)friends

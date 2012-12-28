@@ -169,7 +169,7 @@ NSString *const kPushPhotosTableViewController = @"PushPhotosTableViewController
                                                   success:^(NSArray *albums) {
                                                       [tableViewController setAlbums:albums];
                                                   } failure:^(NSError *error) {
-                                                      
+                                                      NSLog(@"Error fetching albums: %@", error);
                                                   }];
             break;
         }
@@ -201,7 +201,7 @@ NSString *const kPushPhotosTableViewController = @"PushPhotosTableViewController
                                        success:^(NSArray *albums) {
                                            [tableViewController setAlbums:albums];
                                        } failure:^(NSError *error) {
-
+                                           NSLog(@"Error fetching albums: %@", error);
                                        }];
             break;
         }
@@ -216,7 +216,7 @@ NSString *const kPushPhotosTableViewController = @"PushPhotosTableViewController
                                        success:^(NSArray *albums) {
                                            [tableViewController setAlbums:albums];
                                        } failure:^(NSError *error) {
-
+                                           NSLog(@"Error fetching albums: %@", error);
                                        }];
             break;
         }
