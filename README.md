@@ -6,12 +6,12 @@ EBFacebookPhotos for iOS is designed to make it easy to fetch photo albums and p
 
 ## How To Use
 - [Download EBFacebookPhotos (zipped)](https://github.com/eivindbohler/EBFacebookPhotos/zipball/master) or add it as a submodule to your git project:
-``` bash
+```
 git submodule add https://github.com/eivindbohler/EBFacebookPhotos.git
 ```
 - Drag the folder "EBFacebookPhotos" into your Xcode project
 - [Download the Facebook SDK (zipped)](https://github.com/facebook/facebook-ios-sdk/zipball/master) or add it as a submodule to your git project:
-``` bash
+```
 git submodule add https://github.com/facebook/facebook-ios-sdk.git
 ```
 - [Read the documentation](https://developers.facebook.com/docs/getting-started/getting-started-with-the-ios-sdk) for Facebook SDK setup instructions
