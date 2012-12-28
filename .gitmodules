@@ -1,0 +1,6 @@
+[submodule "Vendor/FacebookSDK"]
+	path = Vendor/FacebookSDK
+	url = git://github.com/facebook/facebook-ios-sdk.git
+[submodule "Vendor/AFNetworking"]
+	path = Vendor/AFNetworking
+	url = git://github.com/AFNetworking/AFNetworking.git

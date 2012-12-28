@@ -1,3 +1,4 @@
+//
 // Copyright (c) 2012 Eivind R. Bohler
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -17,14 +18,18 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 //
-//  EBFacebookPhotoAlbums.h
-//  EBFacebookPhotoAlbums
-//
-//  Created by Eivind Rannem Bohler on 12/18/12.
+//  EBImageView.h
+//  EBFacebookPhotos/Examples/PhotoFetcher
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-@interface EBFacebookPhotoAlbums : NSObject
+@interface EBImageView : UIImageView
+
+- (BOOL)isImageWithURLNew:(NSString *)url;
+- (void)setImageWithURL:(NSString *)url
+       placeholderImage:(UIImage *)placeholderImage
+                success:(void (^)(BOOL usedCachedImage))success
+                failure:(void (^)(void))failure;
 
 @end

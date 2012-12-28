@@ -1,3 +1,4 @@
+//
 // Copyright (c) 2012 Eivind R. Bohler
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -17,14 +18,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 //
-//  EBFacebookPhotoAlbums.m
-//  EBFacebookPhotoAlbums
-//
-//  Created by Eivind Rannem Bohler on 12/18/12.
+//  EBPhotoTableViewCell.h
+//  EBFacebookPhotos/Examples/PhotoFetcher
 //
 
-#import "EBFacebookPhotoAlbums.h"
+#import <UIKit/UIKit.h>
 
-@implementation EBFacebookPhotoAlbums
+@class EBImageView;
+
+@interface EBPhotoTableViewCell : UITableViewCell
+
+@property (weak, nonatomic, readonly) IBOutlet UIView *borderView;
+@property (weak, nonatomic, readonly) IBOutlet EBImageView *pictureImageView;
+@property (weak, nonatomic, readonly) IBOutlet UILabel *pictureSizeLabel;
+@property (weak, nonatomic, readonly) IBOutlet UILabel *createdAtLabel;
+@property (weak, nonatomic, readonly) IBOutlet UILabel *captionLabel;
 
 @end
