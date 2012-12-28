@@ -87,7 +87,7 @@ NSString *const kPhotoProperties = @"aid, album_object_id, backdated_time, backd
                  failure:(void (^)(NSError *))failure
 {
     [[self class] albumsForFriends:friends
-                  matchingCriterea:nil
+                  matchingCriteria:nil
                    albumProperties:albumProperties
                    photoProperties:photoProperties
                            success:success
@@ -95,7 +95,7 @@ NSString *const kPhotoProperties = @"aid, album_object_id, backdated_time, backd
 }
 
 + (void)albumsForFriends:(NSArray *)friends
-        matchingCriterea:(NSDictionary *)criterea
+        matchingCriteria:(NSDictionary *)criteria
          albumProperties:(NSArray *)albumProperties
          photoProperties:(NSArray *)photoProperties
                  success:(void (^)(NSArray *))success
@@ -113,10 +113,10 @@ NSString *const kPhotoProperties = @"aid, album_object_id, backdated_time, backd
     }
 
     NSString *matchingQueryString = nil;
-    if (criterea) {
+    if (criteria) {
         NSMutableString *matchingQueryMutableString = [NSMutableString string];
-        for (NSString *key in [criterea allKeys]) {
-            id value = criterea[key];
+        for (NSString *key in [criteria allKeys]) {
+            id value = criteria[key];
             if ([value isKindOfClass:[NSString class]]) {
                 [matchingQueryMutableString appendFormat:@" AND lower(%@) IN (\\\"%@\\\")", [key lowercaseString], [(NSString *)value lowercaseString]];
             } else if ([value isKindOfClass:[NSArray class]]) {

@@ -155,7 +155,7 @@ typedef enum {
         case TableViewTypeMyFriendsAlbumsFromLondon: {
             destinationViewController.navigationItem.title = @"From London";
             [EBFacebookPhotos albumsForFriends:nil
-                              matchingCriterea:@{@"location": @"London"}
+                              matchingCriteria:@{@"location": @"London"}
                                albumProperties:@[@"cover_photo", @"name", @"photo_count", @"created"]
                                photoProperties:@[@"src"]
                                        success:^(NSArray *albums) {

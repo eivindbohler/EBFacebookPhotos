@@ -112,14 +112,14 @@
 
 /**
  Same method as albumsForFriends:albumProperties:photoProperties:success:failure:
- but with the addition of a dictionary specifying matching criterea.
+ but with the addition of a dictionary specifying matching criteria.
  Keys are album properties and values are strings or arrays of strings.
  The strings are treated case insensitively.
 
- Example of a matchingCriterea dictionary: @{@"location": @[@"London", @"San Francisco"]}
+ Example of a matchingCriteria dictionary: @{@"location": @[@"London", @"San Francisco"]}
  */
 + (void)albumsForFriends:(NSArray *)friends
-        matchingCriterea:(NSDictionary *)criterea
+        matchingCriteria:(NSDictionary *)criteria
          albumProperties:(NSArray *)albumProperties
          photoProperties:(NSArray *)photoProperties
                  success:(void (^)(NSArray *albums))success
