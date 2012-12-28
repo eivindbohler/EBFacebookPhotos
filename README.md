@@ -30,7 +30,7 @@ git submodule add https://github.com/facebook/facebook-ios-sdk.git
                            }];
 
 ```
-```
+``` objective-c
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     NSIndexPath *indexPath = (NSIndexPath *)sender;
