@@ -30,9 +30,30 @@ git submodule add https://github.com/facebook/facebook-ios-sdk.git
                            }];
 
 ```
+```
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    NSIndexPath *indexPath = (NSIndexPath *)sender;
+    NSDictionary *album = _albums[indexPath.row];
+    NSString *albumAid = album[@"aid"];
+    NSString *albumName = album[@"name"];
+
+    UIViewController *destinationViewController = segue.destinationViewController;
+    destinationViewController.navigationItem.title = albumName;
+    [EBFacebookPhotos picturesFromAlbum:albumAid
+                        photoProperties:@[@"created", @"caption", @"src_width", @"src_height", @"src"]
+                                success:^(NSArray *photos) {
+                                    if (destinationViewController) {
+                                        [(EBPhotosTableViewController *)destinationViewController setPhotos:photos];
+                                    }
+                                } failure:^(NSError *error) {
+                                    NSLog(@"Error fetching photos: %@", error);
+                                }];
+}
+```
 
 ## Contact
-[Eivind Bohler](http://github.com/eivindbohler)
+[Eivind Bohler](http://github.com/eivindbohler)  
 [@eivindbohler](https://twitter.com/eivindbohler)
 
 ## License
