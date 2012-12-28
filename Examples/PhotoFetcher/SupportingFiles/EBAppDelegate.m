@@ -30,6 +30,9 @@
 
 NSString *const kSessionStateChangedNotification = @"com.example.PhotoFetcher:SessionStateChangedNotification";
 NSString *const kLoginViewControllerIdentifier = @"LoginViewController";
+NSString *const kPushAlbumsTableViewControllerIdentifier = @"PushAlbumsTableViewController";
+NSString *const kPushPhotosTableViewControllerIdentifier = @"PushPhotosTableViewController";
+NSString *const kPushFriendsTableViewControllerIdentifier = @"PushFriendsTableViewController";
 
 @implementation EBAppDelegate
 

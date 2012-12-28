@@ -9,6 +9,7 @@
 #import "EBFriendsTableViewController.h"
 #import "EBAlbumsTableViewController.h"
 #import "EBFacebookPhotos.h"
+#import "EBAppDelegate.h"
 
 @interface EBFriendsTableViewController ()
 
@@ -25,6 +26,26 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    NSIndexPath *indexPath = (NSIndexPath *)sender;
+    NSArray *friends = _sections[indexPath.section];
+    NSDictionary *friend = friends[indexPath.row];
+
+    UIViewController *destinationViewController = segue.destinationViewController;
+    destinationViewController.navigationItem.title = [NSString stringWithFormat:@"%@'s Albums", friend[@"first_name"]];
+
+    [EBFacebookPhotos albumsForFriends:@[friend[@"uid"]]
+                       albumProperties:@[@"aid", @"cover_photo", @"name", @"photo_count", @"created"]
+                       photoProperties:@[@"src"]
+                               success:^(NSArray *albums) {
+                                   [(EBAlbumsTableViewController *)destinationViewController setAlbums:albums];
+                               } failure:^(NSError *error) {
+                                   NSLog(@"Error fetching albums: %@", error);
+                               }];
+
 }
 
 #pragma mark - UITableViewDataSource
@@ -61,21 +82,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray *friends = _sections[indexPath.section];
-    NSDictionary *friend = friends[indexPath.row];
-
-    EBAlbumsTableViewController *tableViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AlbumsTableViewController"];
-    tableViewController.navigationItem.title = [NSString stringWithFormat:@"%@'s Albums", friend[@"first_name"]];
-    [self.navigationController pushViewController:tableViewController animated:YES];
-    [EBFacebookPhotos albumsForFriends:@[friend[@"uid"]]
-                       albumProperties:@[@"cover_photo", @"name", @"photo_count", @"created"]
-                       photoProperties:@[@"src"]
-                               success:^(NSArray *albums) {
-                                   [tableViewController setAlbums:albums];
-                               } failure:^(NSError *error) {
-                                   NSLog(@"Error fetching albums: %@", error);
-                               }];
-
+    [self performSegueWithIdentifier:kPushAlbumsTableViewControllerIdentifier sender:indexPath];
 }
 
 #pragma mark - Public methods

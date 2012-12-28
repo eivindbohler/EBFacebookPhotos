@@ -26,21 +26,50 @@
 @interface EBFacebookPhotos : NSObject
 
 /**
- Fetches all the Profile Pictures owned by the Facebook user
+ Fetches all the Profile Pictures owned by the Facebook user.
+ 
+ photoProperties is an array of strings. Valid strings are:
+
+ aid, aid_cursor, album_object_id, album_object_id_cursor, backdated_time,
+ backdated_time_granularity, can_backdate, can_delete, can_tag, caption,
+ caption_tags, comment_info, created, images, like_info, link, modified,
+ object_id, offline_id, owner, owner_cursor, page_story_id, pid, place_id,
+ position, src, src_big, src_big_height, src_big_width, src_height, src_small,
+ src_small_height, src_small_width, src_width, target_id, target_type
+
+ All photo properties are built-in columns from the Facebook table 'photo'.
+ More info here: https://developers.facebook.com/docs/reference/fql/photo
+ If photoProperties is nil, all properties except cursors are returned.
  */
-+ (void)myProfilePicturesWithSuccess:(void (^)(NSArray *photos))success
-                             failure:(void (^)(NSError *error))failure;
++ (void)myProfilePicturesWithPhotoProperties:(NSArray *)photoProperties
+                                     success:(void (^)(NSArray *photos))success
+                                     failure:(void (^)(NSError *error))failure;
 
 /**
- Fetches all the Timeline Pictures owned by the Facebook user
+ Fetches all the Timeline Pictures owned by the Facebook user.
+ 
+ photoProperties is the same as for the method
+ myProfilePicturesWithPhotoProperties:success:failure:
  */
-+ (void)myTimelinePicturesWithSuccess:(void (^)(NSArray *photos))success
-                              failure:(void (^)(NSError *error))failure;
++ (void)myTimelinePicturesWithPhotoProperties:(NSArray *)photoProperties
+                                      success:(void (^)(NSArray *photos))success
+                                      failure:(void (^)(NSError *error))failure;
+
+/**
+ Fetches all the pictures from an album specified by the string albumId.
+ 
+ photoProperties is the same as for the method
+ myProfilePicturesWithPhotoProperties:success:failure:
+ */
++ (void)picturesFromAlbum:(NSString *)albumId
+          photoProperties:(NSArray *)photoProperties
+                  success:(void (^)(NSArray *photos))success
+                  failure:(void (^)(NSError *error))failure;
 
 /**
  Fetches all the albums owned by the Facebook user.
  
- Album properties are:
+ albumProperties is an array of strings. Valid strings are:
   aid, backdated_time, can_backdate, can_upload, comment_info, cover_object_id,
   cover_pid, created, description, edit_link, like_info, link, location,
   modified, modified_major, name, object_id, owner, owner_cursor, photo_count,
@@ -52,22 +81,13 @@
  If albumProperties is nil, all properties except cursors are returned.
 
  The photos property is an array of Facebook photo objects.
- If photos is not a property in the albums array, the photo properties are ignored.
-
- Photo properties are:
-  aid, aid_cursor, album_object_id, album_object_id_cursor, backdated_time,
-  backdated_time_granularity, can_backdate, can_delete, can_tag, caption,
-  caption_tags, comment_info, created, images, like_info, link, modified,
-  object_id, offline_id, owner, owner_cursor, page_story_id, pid, place_id,
-  position, src, src_big, src_big_height, src_big_width, src_height, src_small,
-  src_small_height, src_small_width, src_width, target_id, target_type
-
- All photo properties are built-in columns from the Facebook table 'photo'.
- More info here: https://developers.facebook.com/docs/reference/fql/photo
- If photoProperties is nil, all properties except cursors are returned.
+ If photos is not a property in the albums array, the photoProperties are ignored.
 
  The cover_photo property is a Facebook photo object with the same properties
  as the ones specified in the photoProperties array.
+ 
+ photoProperties is the same as for the method
+ myProfilePicturesWithPhotoProperties:success:failure:
  */
 + (void)myAlbumsWithAlbumProperties:(NSArray *)albumProperties
                     photoProperties:(NSArray *)photoProperties
@@ -92,10 +112,11 @@
 
 /**
  Same method as albumsForFriends:albumProperties:photoProperties:success:failure:
- but with the addition of a dictionary where keys are album properties and values
- are strings or arrays of strings. The strings are treated case insensitively.
+ but with the addition of a dictionary specifying matching criterea.
+ Keys are album properties and values are strings or arrays of strings.
+ The strings are treated case insensitively.
 
- Example of usage: @{@"location": @[@"London", @"San Francisco"]}
+ Example of a matchingCriterea dictionary: @{@"location": @[@"London", @"San Francisco"]}
  */
 + (void)albumsForFriends:(NSArray *)friends
         matchingCriterea:(NSDictionary *)criterea

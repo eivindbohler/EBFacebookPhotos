@@ -24,6 +24,10 @@
 
 #import <UIKit/UIKit.h>
 
+extern NSString *const kPushAlbumsTableViewControllerIdentifier;
+extern NSString *const kPushPhotosTableViewControllerIdentifier;
+extern NSString *const kPushFriendsTableViewControllerIdentifier;
+
 @class EBTableViewController;
 @class EBLoginViewController;
 

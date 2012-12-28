@@ -42,22 +42,29 @@ NSString *const kPhotoProperties = @"aid, album_object_id, backdated_time, backd
 
 #pragma mark - Public methods
 
-+ (void)myProfilePicturesWithSuccess:(void (^)(NSArray *))success
-                             failure:(void (^)(NSError *))failure
++ (void)myProfilePicturesWithPhotoProperties:(NSArray *)photoProperties
+                                     success:(void (^)(NSArray *))success
+                                     failure:(void (^)(NSError *))failure
 {
-    NSString *query = [NSString stringWithFormat:@"SELECT %@ FROM photo WHERE aid IN"
-                       @"(SELECT aid FROM album WHERE owner = me() AND name = \"Profile Pictures\")",
-                       kPhotoProperties];
-    [[self class] picturesWithQuery:query success:success failure:failure];
+    NSString *query = @"aid IN (SELECT aid FROM album WHERE owner = me() AND name = \"Profile Pictures\")";
+    [[self class] picturesWithQuery:query photoProperties:photoProperties success:success failure:failure];
 }
 
-+ (void)myTimelinePicturesWithSuccess:(void (^)(NSArray *))success
-                              failure:(void (^)(NSError *))failure
++ (void)myTimelinePicturesWithPhotoProperties:(NSArray *)photoProperties
+                                      success:(void (^)(NSArray *))success
+                                      failure:(void (^)(NSError *))failure
 {
-    NSString *query = [NSString stringWithFormat:@"SELECT %@ FROM photo WHERE aid IN"
-                       @"(SELECT aid FROM album WHERE owner = me() AND name = \"Timeline Photos\")",
-                       kPhotoProperties];
-    [[self class] picturesWithQuery:query success:success failure:failure];
+    NSString *query = @"aid IN (SELECT aid FROM album WHERE owner = me() AND name = \"Timeline Photos\")";
+    [[self class] picturesWithQuery:query photoProperties:photoProperties success:success failure:failure];
+}
+
++ (void)picturesFromAlbum:(NSString *)albumId
+          photoProperties:(NSArray *)photoProperties
+                  success:(void (^)(NSArray *))success
+                  failure:(void (^)(NSError *))failure
+{
+    NSString *query = [NSString stringWithFormat:@"aid = %@", albumId];
+    [[self class] picturesWithQuery:query photoProperties:photoProperties success:success failure:failure];
 }
 
 + (void)myAlbumsWithAlbumProperties:(NSArray *)albumProperties
@@ -288,15 +295,29 @@ NSString *const kPhotoProperties = @"aid, album_object_id, backdated_time, backd
 }
 
 + (void)picturesWithQuery:(NSString *)query
+          photoProperties:(NSArray *)photoProperties
                   success:(void (^)(NSArray *))success
                   failure:(void (^)(NSError *))failure
 {
+    NSString *photoPropertiesString;
+    if (!photoProperties) {
+        photoPropertiesString = kPhotoProperties;
+    } else {
+        NSMutableString *photoPropertiesMutableString = [NSMutableString string];
+        for (NSString *property in photoProperties) {
+            [photoPropertiesMutableString appendFormat:@"%@%@", [photoPropertiesMutableString length] > 0 ? @", " : @"", property];
+        }
+        photoPropertiesString = [NSString stringWithString:photoPropertiesMutableString];
+    }
+
+    NSString *queryString = [NSString stringWithFormat:@"SELECT %@ FROM photo WHERE %@", photoPropertiesString, query];
+
     [FBRequestConnection startWithGraphPath:@"/fql"
-                                 parameters:@{@"q": query}
+                                 parameters:@{@"q": queryString}
                                  HTTPMethod:@"GET"
                           completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
                               if ([result isKindOfClass:[NSDictionary class]]) {
-                                  //NSLog(@"%@", result);
+                                  NSLog(@"%@", result);
                                   NSArray *photos = result[@"data"];
                                   success(photos);
                               } else {

@@ -39,8 +39,6 @@ typedef enum {
     TableViewTypeMyFriendsAlbumsFromLondon
 } TableViewType;
 
-NSString *const kPushPhotosTableViewController = @"PushPhotosTableViewController";
-
 @interface EBTableViewController ()
 
 @end
@@ -84,28 +82,87 @@ NSString *const kPushPhotosTableViewController = @"PushPhotosTableViewController
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     UIViewController *destinationViewController = segue.destinationViewController;
-    TableViewType tableViewType = [(NSNumber *)sender integerValue];
+    NSIndexPath *indexPath = (NSIndexPath *)sender;
+    TableViewType tableViewType = indexPath.row;
     switch (tableViewType) {
         case TableViewTypeMyProfilePictures: {
             destinationViewController.navigationItem.title = @"My Profile Pictures";
-            [EBFacebookPhotos myProfilePicturesWithSuccess:^(NSArray *photos) {
-                if (destinationViewController) {
-                    [(EBPhotosTableViewController *)destinationViewController setPhotos:photos];
-                }
-            } failure:^(NSError *error) {
-                NSLog(@"Error fetching photos: %@", error);
-            }];
+            [EBFacebookPhotos myProfilePicturesWithPhotoProperties:@[@"created", @"caption", @"src_width", @"src_height", @"src"]
+                                                           success:^(NSArray *photos) {
+                                                               if (destinationViewController) {
+                                                                   [(EBPhotosTableViewController *)destinationViewController setPhotos:photos];
+                                                               }
+                                                           } failure:^(NSError *error) {
+                                                               NSLog(@"Error fetching photos: %@", error);
+                                                           }];
             break;
         }
         case TableViewTypeMyTimelinePictures: {
             destinationViewController.navigationItem.title = @"My Timeline Pictures";
-            [EBFacebookPhotos myTimelinePicturesWithSuccess:^(NSArray *photos) {
-                if (destinationViewController) {
-                    [(EBPhotosTableViewController *)destinationViewController setPhotos:photos];
-                }
-            } failure:^(NSError *error) {
-                NSLog(@"Error fetching photos: %@", error);
-            }];
+            [EBFacebookPhotos myTimelinePicturesWithPhotoProperties:@[@"created", @"caption", @"src_width", @"src_height", @"src"]
+                                                            success:^(NSArray *photos) {
+                                                                if (destinationViewController) {
+                                                                    [(EBPhotosTableViewController *)destinationViewController setPhotos:photos];
+                                                                }
+                                                            } failure:^(NSError *error) {
+                                                                NSLog(@"Error fetching photos: %@", error);
+                                                            }];
+            break;
+        }
+        case TableViewTypeMyAlbums: {
+            destinationViewController.navigationItem.title = @"My Albums";
+            [EBFacebookPhotos myAlbumsWithAlbumProperties:@[@"aid", @"cover_photo", @"name", @"photo_count", @"created"]
+                                          photoProperties:@[@"src"]
+                                                  success:^(NSArray *albums) {
+                                                      [(EBAlbumsTableViewController *)destinationViewController setAlbums:albums];
+                                                  } failure:^(NSError *error) {
+                                                      NSLog(@"Error fetching albums: %@", error);
+                                                  }];
+            break;
+        }
+        case TableViewTypeMyFriends: {
+            destinationViewController.navigationItem.title = @"My Friends";
+            NSString *query = @"SELECT uid, first_name, name FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me())";
+            [FBRequestConnection startWithGraphPath:@"/fql"
+                                         parameters:@{@"q": query}
+                                         HTTPMethod:@"GET"
+                                  completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                                      if (destinationViewController) {
+                                          if ([result isKindOfClass:[NSDictionary class]]) {
+                                              NSArray *friends = result[@"data"];
+                                              if ([friends isKindOfClass:[NSArray class]]) {
+                                                  [(EBFriendsTableViewController *)destinationViewController setFriends:friends];
+                                                  return;
+                                              }
+                                          }
+                                      }
+                                      NSLog(@"Error fetching friends: %@", error);
+                                  }];
+            break;
+        }
+        case TableViewTypeMyFriendsAlbums: {
+            destinationViewController.navigationItem.title = @"My Friends' Albums";
+            [EBFacebookPhotos albumsForFriends:nil
+                               albumProperties:@[@"cover_photo", @"name", @"photo_count", @"created"]
+                               photoProperties:@[@"src"]
+                                       success:^(NSArray *albums) {
+                                           [(EBAlbumsTableViewController *)destinationViewController setAlbums:albums];
+                                       } failure:^(NSError *error) {
+                                           NSLog(@"Error fetching albums: %@", error);
+                                       }];
+            break;
+        }
+        case TableViewTypeMyFriendsAlbumsFromLondon: {
+            destinationViewController.navigationItem.title = @"From London";
+            [EBFacebookPhotos albumsForFriends:nil
+                              matchingCriterea:@{@"location": @"London"}
+                               albumProperties:@[@"cover_photo", @"name", @"photo_count", @"created"]
+                               photoProperties:@[@"src"]
+                                       success:^(NSArray *albums) {
+                                           [(EBAlbumsTableViewController *)destinationViewController setAlbums:albums];
+                                       } failure:^(NSError *error) {
+                                           NSLog(@"Error fetching albums: %@", error);
+                                       }];
             break;
         }
         default:
@@ -160,69 +217,17 @@ NSString *const kPushPhotosTableViewController = @"PushPhotosTableViewController
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     switch (indexPath.row) {
-        case TableViewTypeMyAlbums: {
-            EBAlbumsTableViewController *tableViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AlbumsTableViewController"];
-            tableViewController.navigationItem.title = @"My Albums";
-            [self.navigationController pushViewController:tableViewController animated:YES];
-            [EBFacebookPhotos myAlbumsWithAlbumProperties:@[@"cover_photo", @"name", @"photo_count", @"created"]
-                                          photoProperties:@[@"src"]
-                                                  success:^(NSArray *albums) {
-                                                      [tableViewController setAlbums:albums];
-                                                  } failure:^(NSError *error) {
-                                                      NSLog(@"Error fetching albums: %@", error);
-                                                  }];
-            break;
-        }
-        case TableViewTypeMyFriends: {
-            EBFriendsTableViewController *tableViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FriendsTableViewController"];
-            tableViewController.navigationItem.title = @"My Friends";
-            [self.navigationController pushViewController:tableViewController animated:YES];
-            NSString *query = @"SELECT uid, first_name, name FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me())";
-            [FBRequestConnection startWithGraphPath:@"/fql"
-                                         parameters:@{@"q": query}
-                                         HTTPMethod:@"GET"
-                                  completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                                      if ([result isKindOfClass:[NSDictionary class]]) {
-                                          NSArray *friends = result[@"data"];
-                                          if ([friends isKindOfClass:[NSArray class]]) {
-                                              [tableViewController setFriends:friends];
-                                          }
-                                      }
-                                  }];
-            break;
-        }
-        case TableViewTypeMyFriendsAlbums: {
-            EBAlbumsTableViewController *tableViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AlbumsTableViewController"];
-            tableViewController.navigationItem.title = @"My Friends' Albums";
-            [self.navigationController pushViewController:tableViewController animated:YES];
-            [EBFacebookPhotos albumsForFriends:nil
-                               albumProperties:@[@"cover_photo", @"name", @"photo_count", @"created"]
-                               photoProperties:@[@"src"]
-                                       success:^(NSArray *albums) {
-                                           [tableViewController setAlbums:albums];
-                                       } failure:^(NSError *error) {
-                                           NSLog(@"Error fetching albums: %@", error);
-                                       }];
-            break;
-        }
-        case TableViewTypeMyFriendsAlbumsFromLondon: {
-            EBAlbumsTableViewController *tableViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AlbumsTableViewController"];
-            tableViewController.navigationItem.title = @"From London";
-            [self.navigationController pushViewController:tableViewController animated:YES];
-            [EBFacebookPhotos albumsForFriends:nil
-                              matchingCriterea:@{@"location": @"London"}
-                               albumProperties:@[@"cover_photo", @"name", @"photo_count", @"created"]
-                               photoProperties:@[@"src"]
-                                       success:^(NSArray *albums) {
-                                           [tableViewController setAlbums:albums];
-                                       } failure:^(NSError *error) {
-                                           NSLog(@"Error fetching albums: %@", error);
-                                       }];
-            break;
-        }
         case TableViewTypeMyProfilePictures:
         case TableViewTypeMyTimelinePictures:
-            [self performSegueWithIdentifier:kPushPhotosTableViewController sender:[NSNumber numberWithInteger:indexPath.row]];
+            [self performSegueWithIdentifier:kPushPhotosTableViewControllerIdentifier sender:indexPath];
+            break;
+        case TableViewTypeMyFriends:
+            [self performSegueWithIdentifier:kPushFriendsTableViewControllerIdentifier sender:indexPath];
+            break;
+        case TableViewTypeMyAlbums:
+        case TableViewTypeMyFriendsAlbums:
+        case TableViewTypeMyFriendsAlbumsFromLondon:
+            [self performSegueWithIdentifier:kPushAlbumsTableViewControllerIdentifier sender:indexPath];
             break;
         default:
             break;

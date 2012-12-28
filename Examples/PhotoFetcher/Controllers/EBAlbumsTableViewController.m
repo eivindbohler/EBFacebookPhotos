@@ -25,6 +25,9 @@
 #import "EBAlbumsTableViewController.h"
 #import "EBAlbumTableViewCell.h"
 #import "EBImageView.h"
+#import "EBPhotosTableViewController.h"
+#import "EBAppDelegate.h"
+#import "EBFacebookPhotos.h"
 
 @interface EBAlbumsTableViewController ()
 
@@ -35,7 +38,7 @@
 
 @implementation EBAlbumsTableViewController
 
-#pragma mark - UIViewController
+#pragma mark - NSObject
 
 - (void)awakeFromNib
 {
@@ -43,6 +46,28 @@
     _dateFormatter.locale = [NSLocale currentLocale];
     _dateFormatter.dateStyle = NSDateFormatterShortStyle;
     _dateFormatter.timeStyle = NSDateFormatterShortStyle;
+}
+
+#pragma mark - UIViewController
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    NSIndexPath *indexPath = (NSIndexPath *)sender;
+    NSDictionary *album = _albums[indexPath.row];
+    NSString *albumAid = album[@"aid"];
+    NSString *albumName = album[@"name"];
+
+    UIViewController *destinationViewController = segue.destinationViewController;
+    destinationViewController.navigationItem.title = albumName;
+    [EBFacebookPhotos picturesFromAlbum:albumAid
+                        photoProperties:@[@"created", @"caption", @"src_width", @"src_height", @"src"]
+                                success:^(NSArray *photos) {
+                                    if (destinationViewController) {
+                                        [(EBPhotosTableViewController *)destinationViewController setPhotos:photos];
+                                    }
+                                } failure:^(NSError *error) {
+                                    NSLog(@"Error fetching photos: %@", error);
+                                }];
 }
 
 #pragma mark - UITableViewDataSource
@@ -96,6 +121,13 @@
     }
 
     return cell;
+}
+
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self performSegueWithIdentifier:kPushPhotosTableViewControllerIdentifier sender:indexPath];
 }
 
 #pragma mark - Public methods
