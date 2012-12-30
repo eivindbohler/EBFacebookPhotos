@@ -102,7 +102,7 @@
 
  If friends is nil, all the user's friends are queried.
 
- Warning: use the album property photo with caution, as this has the potential
+ Warning: use the album property photos with caution, as this has the potential
  of making the response and processing of the Facebook query rather slow.
  */
 + (void)albumsForFriends:(NSArray *)friends
@@ -118,6 +118,8 @@
  The strings are treated case insensitively.
 
  Example of a matchingCriteria dictionary: @{@"location": @[@"London", @"San Francisco"]}
+ 
+ If friends is nil, all the user's friends are queried.
  */
 + (void)albumsForFriends:(NSArray *)friends
         matchingCriteria:(NSDictionary *)criteria
