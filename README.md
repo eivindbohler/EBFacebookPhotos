@@ -53,8 +53,9 @@ git submodule add https://github.com/facebook/facebook-ios-sdk.git
 ```
 
 ## Contact
-[Eivind Bohler](http://github.com/eivindbohler)  
-[@eivindbohler](https://twitter.com/eivindbohler)
+Mail: [eivind.bohler@gmail.com](mailto:eivind.bohler@gmail.com)  
+GitHub: [github.com/eivindbohler](http://github.com/eivindbohler)  
+Twitter: [@eivindbohler](https://twitter.com/eivindbohler)
 
 ## License
 EBFacebookPhotos is available under the MIT license. See the LICENSE file for more info.
