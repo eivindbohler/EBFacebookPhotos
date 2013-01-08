@@ -71,8 +71,8 @@
     cell.captionLabel.text = [NSString stringWithFormat:@"Caption: %@", photo[@"caption"]];
     NSString *url = photo[@"src"];
     if ([cell.pictureImageView isImageWithURLNew:url]) {
-        [cell.pictureImageView setImageWithURL:url placeholderImage:nil success:^(BOOL usedCachedImage){
-            if (!usedCachedImage && !cell.pictureImageView.image) {
+        [cell.pictureImageView setImageWithURL:url placeholderImage:nil success:^(BOOL cachedImage){
+            if (!cachedImage) {
                 cell.pictureImageView.alpha = 0.0;
                 [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                     cell.pictureImageView.alpha = 1.0;

@@ -26,10 +26,22 @@
 
 @interface EBImageView : UIImageView
 
+/**
+ Returns YES if this instance of EBImageView has already loaded (and cached)
+ an image with this url.
+ */
 - (BOOL)isImageWithURLNew:(NSString *)url;
+
+/**
+ Checks if an image with the provided url is already cached to disk and loads
+ it directly if this is the case. If not, starts an async request via
+ AFNetworking to fetch the image and if successful, caches and loads it.
+ In any case, a callback is triggered indicating whether loading was successful
+ or not, and if the load was from disk (cachedImage).
+ */
 - (void)setImageWithURL:(NSString *)url
        placeholderImage:(UIImage *)placeholderImage
-                success:(void (^)(BOOL usedCachedImage))success
+                success:(void (^)(BOOL cachedImage))success
                 failure:(void (^)(void))failure;
 
 @end

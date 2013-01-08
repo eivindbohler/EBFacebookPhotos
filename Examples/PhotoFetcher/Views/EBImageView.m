@@ -56,7 +56,7 @@
 
 - (void)setImageWithURL:(NSString *)url
        placeholderImage:(UIImage *)placeholderImage
-                success:(void (^)(BOOL usedCachedImage))success
+                success:(void (^)(BOOL))success
                 failure:(void (^)(void))failure
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -73,7 +73,7 @@
             });
         } else {
             dispatch_sync(dispatch_get_main_queue(), ^{
-                self.image = nil;
+                self.image = nil; // As we probably don't want to view an old image while downloading a new one
             });
             NSString *filePath = [_filePath copy];
             NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
@@ -102,9 +102,9 @@
     NSString *cachePath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0];
     NSString *pathExtension = [fileName pathExtension];
     NSRange extensionRange = [fileName rangeOfString:pathExtension];
-    NSString *newFileName = [fileName stringByReplacingCharactersInRange:extensionRange withString:@"png"];
-    NSString *newFilePath = [cachePath stringByAppendingPathComponent:newFileName];
-    return newFilePath;
+    NSString *cachedFileName = [fileName stringByReplacingCharactersInRange:extensionRange withString:@"png"];
+    NSString *cachedFilePath = [cachePath stringByAppendingPathComponent:cachedFileName];
+    return cachedFilePath;
 }
 
 @end

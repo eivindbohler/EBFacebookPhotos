@@ -182,7 +182,7 @@ NSString *const kPhotoProperties = @"aid, album_object_id, backdated_time, backd
         if (fetchCoverPhoto && !foundAlbumCoverObjectId) {
             [albumPropertiesMutableString appendFormat:@"%@%@", [albumPropertiesMutableString length] > 0 ? @", " : @"", @"cover_object_id"];
         }
-        if (fetchPhotos && !foundAlbumAid) {
+        if (!foundAlbumAid) {
             [albumPropertiesMutableString appendFormat:@"%@%@", [albumPropertiesMutableString length] > 0 ? @", " : @"", @"aid"];
         }
 
