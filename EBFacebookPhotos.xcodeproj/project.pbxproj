@@ -496,7 +496,7 @@
 		839764771680F5E000621378 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Eivind R. Bohler";
 			};
 			buildConfigurationList = 8397647A1680F5E000621378 /* Build configuration list for PBXProject "EBFacebookPhotos" */;

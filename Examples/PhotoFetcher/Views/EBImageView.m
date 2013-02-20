@@ -24,7 +24,6 @@
 
 #import "EBImageView.h"
 #import "UIImageView+AFNetworking.h"
-#import "EBAppDelegate.h"
 
 @interface EBImageView ()
 
@@ -77,8 +76,9 @@
             });
             NSString *filePath = [_filePath copy];
             NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+            EBImageView *weakSelf = self; // To avoid capturing self and possibly getting a circular reference
             [self setImageWithURLRequest:urlRequest placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                self.image = image;
+                weakSelf.image = image;
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                     NSError *error = nil;
                     [UIImagePNGRepresentation(image) writeToFile:filePath options:NSDataWritingAtomic error:&error];
