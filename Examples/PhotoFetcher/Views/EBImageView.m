@@ -62,7 +62,7 @@
         _filePath = [self cachedPNGFilePathForURL:url];
         if ([[NSFileManager defaultManager] fileExistsAtPath:_filePath]) {
             dispatch_sync(dispatch_get_main_queue(), ^{
-                self.image = [UIImage imageNamed:_filePath];
+                self.image = [UIImage imageWithContentsOfFile:_filePath];
                 if (self.image) {
                     success(YES);
                 } else {
