@@ -61,9 +61,8 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         _filePath = [self cachedPNGFilePathForURL:url];
         if ([[NSFileManager defaultManager] fileExistsAtPath:_filePath]) {
-            UIImage *image = [UIImage imageWithContentsOfFile:_filePath];
             dispatch_sync(dispatch_get_main_queue(), ^{
-                self.image = image;
+                self.image = [UIImage imageNamed:_filePath];
                 if (self.image) {
                     success(YES);
                 } else {
