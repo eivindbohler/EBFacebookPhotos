@@ -71,12 +71,12 @@
             });
         } else {
             dispatch_sync(dispatch_get_main_queue(), ^{
-                self.image = nil; // As we probably don't want to view an old image while downloading a new one
+                self.image = placeholderImage; // As we probably don't want to view an old image while downloading a new one
             });
             NSString *filePath = [_filePath copy];
             NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
             EBImageView *weakSelf = self; // To avoid capturing self and possibly getting a circular reference
-            [self setImageWithURLRequest:urlRequest placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+            [self setImageWithURLRequest:urlRequest placeholderImage:placeholderImage success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                 weakSelf.image = image;
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                     NSError *error = nil;
