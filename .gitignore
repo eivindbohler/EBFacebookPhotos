@@ -15,3 +15,8 @@ profile
 *.xcodeproj/project.xcworkspace/*
 *.xcodeproj/xcuserdata/*
 *.xcodeproj/xcshareddata/*
+*.xcworkspace
+
+# Cocoapods
+Podfile.lock
+Pods
