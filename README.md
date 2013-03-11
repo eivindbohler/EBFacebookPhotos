@@ -7,15 +7,14 @@ EBFacebookPhotos for iOS is designed to make it easy to fetch photo albums and p
 - Run pod install.
 - Open EBFacebookPhotos.xcworkspace and try out the included iOS example app "PhotoFetcher"
 
-## How To Use
-- Include EBFacebookPhotos in your Podfile, and run the pod install command:  
-``` ruby
+## How To Use In Your Own Project
+- Include EBFacebookPhotos in your Podfile, and run the pod install command:
+```ruby
 platform :ios, '5.1'
-
 pod 'EBFacebookPhotos', :git => 'https://github.com/eivindbohler/EBFacebookPhotos.git', :tag => '0.0.2'
 ```
 
-- Run the pod install command:  
+- Run the pod install command:
 ```
 $ pod install
 ```
@@ -24,7 +23,7 @@ $ pod install
 - Enjoy!
 
 ## Example
-``` objective-c
+```objective-c
 [EBFacebookPhotos albumsForFriends:nil
                   matchingCriteria:@{@"location": @"London"}
                    albumProperties:@[@"cover_photo", @"name", @"photo_count", @"created"]
@@ -36,7 +35,7 @@ $ pod install
                            }];
 
 ```
-``` objective-c
+```objective-c
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     NSIndexPath *indexPath = (NSIndexPath *)sender;
