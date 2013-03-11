@@ -2,18 +2,24 @@
 EBFacebookPhotos for iOS is designed to make it easy to fetch photo albums and photos through the Facebook SDK using as few HTTP requests as possible.
 
 ## How To Get Started
-- [Download EBFacebookPhotos (zipped)](https://github.com/eivindbohler/EBFacebookPhotos/zipball/master) and try out the included iOS example app "PhotoFetcher"
+- If you haven't already, download and install [CocoaPods](https://github.com/CocoaPods/CocoaPods).
+- [Download EBFacebookPhotos (zipped)](https://github.com/eivindbohler/EBFacebookPhotos/zipball/master) or clone the git repo.
+- Run pod install.
+- Open EBFacebookPhotos.xcworkspace and try out the included iOS example app "PhotoFetcher"
 
 ## How To Use
-- [Download EBFacebookPhotos (zipped)](https://github.com/eivindbohler/EBFacebookPhotos/zipball/master) or add it as a submodule to your git project:
+- Include EBFacebookPhotos in your Podfile, and run the pod install command:  
+``` ruby
+platform :ios, '5.1'
+
+pod 'EBFacebookPhotos', :git => 'https://github.com/eivindbohler/EBFacebookPhotos.git', :tag => '0.0.2'
 ```
-git submodule add https://github.com/eivindbohler/EBFacebookPhotos.git
+
+- Run the pod install command:  
 ```
-- Drag the folder "EBFacebookPhotos" into your Xcode project
-- [Download the Facebook SDK (zipped)](https://github.com/facebook/facebook-ios-sdk/zipball/master) or add it as a submodule to your git project:
+$ pod install
 ```
-git submodule add https://github.com/facebook/facebook-ios-sdk.git
-```
+
 - [Read the documentation](https://developers.facebook.com/docs/getting-started/getting-started-with-the-ios-sdk) for Facebook SDK setup instructions
 - Enjoy!
 
