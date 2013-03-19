@@ -53,6 +53,12 @@
     return YES;
 }
 
+- (void)setPlaceholderImage:(UIImage *)placeholderImage
+{
+    self.image = placeholderImage;
+    _filePath = nil;
+}
+
 - (void)setImageWithURL:(NSString *)url
        placeholderImage:(UIImage *)placeholderImage
                 success:(void (^)(BOOL))success

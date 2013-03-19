@@ -33,6 +33,11 @@
 - (BOOL)isImageWithURLNew:(NSString *)url;
 
 /**
+ Sets a placeholder image directly
+ */
+- (void)setPlaceholderImage:(UIImage *)placeholderImage;
+
+/**
  Checks if an image with the provided url is already cached to disk and loads
  it directly if this is the case. If not, starts an async request via
  AFNetworking to fetch the image and if successful, caches and loads it.
