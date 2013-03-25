@@ -28,10 +28,10 @@
 
 @interface EBAlbumTableViewCell : UITableViewCell
 
-@property (weak, nonatomic, readonly) IBOutlet UIView *borderView;
-@property (weak, nonatomic, readonly) IBOutlet EBImageView *pictureImageView;
-@property (weak, nonatomic, readonly) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic, readonly) IBOutlet UILabel *createdAtLabel;
-@property (weak, nonatomic, readonly) IBOutlet UILabel *numberOfPicturesLabel;
+@property (weak, nonatomic) IBOutlet UIView *borderView;
+@property (weak, nonatomic) IBOutlet EBImageView *pictureImageView;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *createdAtLabel;
+@property (weak, nonatomic) IBOutlet UILabel *numberOfPicturesLabel;
 
 @end

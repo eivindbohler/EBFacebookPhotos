@@ -87,7 +87,7 @@
             NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
             EBImageView *weakSelf = self; // To avoid capturing self and possibly getting a circular reference
             [self setImageWithURLRequest:urlRequest placeholderImage:placeholderImage success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                if (_logRequests) {
+                if (weakSelf.logRequests) {
                     NSLog(@"%@ %@ %d", [request HTTPMethod], [request URL], [response statusCode]);
                 }
                 weakSelf.image = image;
@@ -102,7 +102,7 @@
                     success(NO);
                 }
             } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                if (_logRequests) {
+                if (weakSelf.logRequests) {
                     NSLog(@"%@ %@ %d", [request HTTPMethod], [request URL], [response statusCode]);
                 }
                 if (failure) {

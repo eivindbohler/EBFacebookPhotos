@@ -26,7 +26,7 @@
 
 @interface EBLoginViewController : UIViewController
 
-@property (weak, nonatomic, readonly) IBOutlet UIButton *loginButton;
+@property (weak, nonatomic) IBOutlet UIButton *loginButton;
 
 - (IBAction)didTapLoginButton:(id)sender;
 
