@@ -27,6 +27,11 @@
 @interface EBImageView : UIImageView
 
 /**
+ Set this property to YES if you want to NSLog HTTP requests
+ */
+@property (assign, nonatomic) BOOL logRequests;
+
+/**
  Returns YES if this instance of EBImageView has already loaded (and cached)
  an image with this url.
  */

@@ -70,9 +70,13 @@
             dispatch_sync(dispatch_get_main_queue(), ^{
                 self.image = [UIImage imageWithContentsOfFile:_filePath];
                 if (self.image) {
-                    success(YES);
+                    if (success) {
+                        success(YES);
+                    }
                 } else {
-                    failure();
+                    if (failure) {
+                        failure();
+                    }
                 }
             });
         } else {
@@ -83,6 +87,9 @@
             NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
             EBImageView *weakSelf = self; // To avoid capturing self and possibly getting a circular reference
             [self setImageWithURLRequest:urlRequest placeholderImage:placeholderImage success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                if (_logRequests) {
+                    NSLog(@"%@ %@ %d", [request HTTPMethod], [request URL], [response statusCode]);
+                }
                 weakSelf.image = image;
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                     NSError *error = nil;
@@ -91,9 +98,16 @@
                         NSLog(@"error: %@", error.localizedDescription);
                     }
                 });
-                success(NO);
+                if (success) {
+                    success(NO);
+                }
             } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                failure();
+                if (_logRequests) {
+                    NSLog(@"%@ %@ %d", [request HTTPMethod], [request URL], [response statusCode]);
+                }
+                if (failure) {
+                    failure();
+                }
             }];
         }
     });
