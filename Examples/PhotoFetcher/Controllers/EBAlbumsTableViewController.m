@@ -102,7 +102,8 @@
         albumPhotoCountText = [NSString stringWithFormat:@"%u", [albumPhotoCount unsignedIntegerValue]];
     }
     cell.numberOfPicturesLabel.text = [NSString stringWithFormat:@"Number of Pictures: %@", albumPhotoCountText];
-    NSString *url = album[@"cover_photo"][@"src"];
+    NSString *urlString = album[@"cover_photo"][@"src"];
+    NSURL *url = [NSURL URLWithString:urlString];
     if (url) {
         if ([cell.pictureImageView isImageWithURLNew:url]) {
             [cell.pictureImageView setImageWithURL:url placeholderImage:nil success:^(BOOL usedCachedImage){

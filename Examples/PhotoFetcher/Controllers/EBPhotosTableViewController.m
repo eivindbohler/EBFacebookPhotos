@@ -69,7 +69,8 @@
     cell.createdAtLabel.text = [NSString stringWithFormat:@"Created at: %@",
                                 [_dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:[photo[@"created"] doubleValue]]]];
     cell.captionLabel.text = [NSString stringWithFormat:@"Caption: %@", photo[@"caption"]];
-    NSString *url = photo[@"src"];
+    NSString *urlString = photo[@"src"];
+    NSURL *url = [NSURL URLWithString:urlString];
     if ([cell.pictureImageView isImageWithURLNew:url]) {
         [cell.pictureImageView setImageWithURL:url placeholderImage:nil success:^(BOOL cachedImage){
             if (!cachedImage) {

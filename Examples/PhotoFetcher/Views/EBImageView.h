@@ -35,7 +35,7 @@
  Returns YES if this instance of EBImageView has already loaded (and cached)
  an image with this url.
  */
-- (BOOL)isImageWithURLNew:(NSString *)url;
+- (BOOL)isImageWithURLNew:(NSURL *)url;
 
 /**
  Sets a placeholder image directly
@@ -49,7 +49,7 @@
  In any case, a callback is triggered indicating whether loading was successful
  or not, and if the load was from disk (cachedImage).
  */
-- (void)setImageWithURL:(NSString *)url
+- (void)setImageWithURL:(NSURL *)url
        placeholderImage:(UIImage *)placeholderImage
                 success:(void (^)(BOOL cachedImage))success
                 failure:(void (^)(void))failure;

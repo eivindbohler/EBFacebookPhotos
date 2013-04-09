@@ -42,7 +42,7 @@
 
 #pragma mark - Public methods
 
-- (BOOL)isImageWithURLNew:(NSString *)url
+- (BOOL)isImageWithURLNew:(NSURL *)url
 {
     if (!self.image) {
         return YES;
@@ -59,7 +59,7 @@
     _filePath = nil;
 }
 
-- (void)setImageWithURL:(NSString *)url
+- (void)setImageWithURL:(NSURL *)url
        placeholderImage:(UIImage *)placeholderImage
                 success:(void (^)(BOOL))success
                 failure:(void (^)(void))failure
@@ -84,7 +84,7 @@
                 self.image = placeholderImage; // As we probably don't want to view an old image while downloading a new one
             });
             NSString *filePath = [_filePath copy];
-            NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+            NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
             EBImageView *weakSelf = self; // To avoid capturing self and possibly getting a circular reference
             [self setImageWithURLRequest:urlRequest placeholderImage:placeholderImage success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                 if (weakSelf.logRequests) {
@@ -115,7 +115,7 @@
 
 #pragma mark - Private methods
 
-- (NSString *)cachedPNGFilePathForURL:(NSString *)url
+- (NSString *)cachedPNGFilePathForURL:(NSURL *)url
 {
     NSString *fileName = [url lastPathComponent];
     NSString *cachePath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0];
