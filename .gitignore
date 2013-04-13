@@ -18,5 +18,4 @@ profile
 *.xcworkspace
 
 # Cocoapods
-Podfile.lock
 Pods

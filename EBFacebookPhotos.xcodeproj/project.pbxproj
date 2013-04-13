@@ -11,7 +11,6 @@
 		7C463300B7E74E348C2B4953 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2794C9FF11949D29C18C5F1 /* libPods.a */; };
 		837C27E016839EEA00621C6B /* EBPhotosTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 837C27DF16839EEA00621C6B /* EBPhotosTableViewController.m */; };
 		837C27F21683AF9100621C6B /* EBPhotoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 837C27F11683AF9100621C6B /* EBPhotoTableViewCell.m */; };
-		837C27F51683B2C700621C6B /* EBImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 837C27F41683B2C600621C6B /* EBImageView.m */; };
 		837C287B1685E41A00621C6B /* EBAlbumsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 837C287A1685E41A00621C6B /* EBAlbumsTableViewController.m */; };
 		837C287E1685E79E00621C6B /* EBAlbumTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 837C287D1685E79E00621C6B /* EBAlbumTableViewCell.m */; };
 		837C2881168CF18200621C6B /* EBFriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 837C2880168CF18200621C6B /* EBFriendsTableViewController.m */; };
@@ -49,8 +48,6 @@
 		837C27DF16839EEA00621C6B /* EBPhotosTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBPhotosTableViewController.m; sourceTree = "<group>"; };
 		837C27F01683AF9100621C6B /* EBPhotoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBPhotoTableViewCell.h; sourceTree = "<group>"; };
 		837C27F11683AF9100621C6B /* EBPhotoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBPhotoTableViewCell.m; sourceTree = "<group>"; };
-		837C27F31683B2C600621C6B /* EBImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBImageView.h; sourceTree = "<group>"; };
-		837C27F41683B2C600621C6B /* EBImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBImageView.m; sourceTree = "<group>"; };
 		837C28791685E41900621C6B /* EBAlbumsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBAlbumsTableViewController.h; sourceTree = "<group>"; };
 		837C287A1685E41A00621C6B /* EBAlbumsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBAlbumsTableViewController.m; sourceTree = "<group>"; };
 		837C287C1685E79E00621C6B /* EBAlbumTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBAlbumTableViewCell.h; sourceTree = "<group>"; };
@@ -108,8 +105,6 @@
 		837C27EF1683AF9000621C6B /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				837C27F31683B2C600621C6B /* EBImageView.h */,
-				837C27F41683B2C600621C6B /* EBImageView.m */,
 				837C27F01683AF9100621C6B /* EBPhotoTableViewCell.h */,
 				837C27F11683AF9100621C6B /* EBPhotoTableViewCell.m */,
 				837C287C1685E79E00621C6B /* EBAlbumTableViewCell.h */,
@@ -365,7 +360,6 @@
 				8397655A16810E1500621378 /* EBLoginViewController.m in Sources */,
 				837C27E016839EEA00621C6B /* EBPhotosTableViewController.m in Sources */,
 				837C27F21683AF9100621C6B /* EBPhotoTableViewCell.m in Sources */,
-				837C27F51683B2C700621C6B /* EBImageView.m in Sources */,
 				837C287B1685E41A00621C6B /* EBAlbumsTableViewController.m in Sources */,
 				837C287E1685E79E00621C6B /* EBAlbumTableViewCell.m in Sources */,
 				837C2881168CF18200621C6B /* EBFriendsTableViewController.m in Sources */,

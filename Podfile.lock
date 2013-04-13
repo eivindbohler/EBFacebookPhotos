@@ -1,0 +1,22 @@
+PODS:
+  - AFNetworking (1.2.0)
+  - EBImageView (0.0.1):
+    - AFNetworking (>= 1.2.0)
+  - Facebook-iOS-SDK (3.2.1)
+
+DEPENDENCIES:
+  - AFNetworking (>= 1.2.0)
+  - EBImageView (from `https://github.com/eivindbohler/EBImageView.git`, tag `0.0.1`)
+  - Facebook-iOS-SDK (>= 3.2.1)
+
+EXTERNAL SOURCES:
+  EBImageView:
+    :git: https://github.com/eivindbohler/EBImageView.git
+    :tag: 0.0.1
+
+SPEC CHECKSUMS:
+  AFNetworking: 3cbae45f61a9f995cdbd56bd571223910d7f4e44
+  EBImageView: 0acabc064a93a3ba9f4c681d6ac520602058eb00
+  Facebook-iOS-SDK: 514dc0d7d43358999267c88c088e4b5b339b7da1
+
+COCOAPODS: 0.18.1
