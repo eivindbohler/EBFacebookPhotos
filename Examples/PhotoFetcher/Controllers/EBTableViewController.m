@@ -30,14 +30,14 @@
 #import "EBPhotosTableViewController.h"
 #import "EBFriendsTableViewController.h"
 
-typedef enum {
+typedef NS_ENUM(NSInteger, TableViewType) {
     TableViewTypeMyProfilePictures = 0,
     TableViewTypeMyTimelinePictures,
     TableViewTypeMyAlbums,
     TableViewTypeMyFriends,
     TableViewTypeMyFriendsAlbums,
     TableViewTypeMyFriendsAlbumsFromLondon
-} TableViewType;
+};
 
 @interface EBTableViewController ()
 

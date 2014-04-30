@@ -99,15 +99,16 @@
     id albumPhotoCount = album[@"photo_count"];
     NSString *albumPhotoCountText = @"";
     if (albumPhotoCount) {
-        albumPhotoCountText = [NSString stringWithFormat:@"%u", [albumPhotoCount unsignedIntegerValue]];
+        albumPhotoCountText = [NSString stringWithFormat:@"%lu", (unsigned long)[albumPhotoCount unsignedIntegerValue]];
     }
     cell.numberOfPicturesLabel.text = [NSString stringWithFormat:@"Number of Pictures: %@", albumPhotoCountText];
     NSString *urlString = album[@"cover_photo"][@"src"];
     NSURL *url = [NSURL URLWithString:urlString];
     if (url) {
         if ([cell.pictureImageView isImageWithURLNew:url]) {
-            [cell.pictureImageView setImageWithURL:url placeholderImage:nil success:^(BOOL usedCachedImage){
-                if (!usedCachedImage && !cell.pictureImageView.image) {
+            [cell.pictureImageView setImageWithURL:url placeholderImage:nil success:^(UIImage *image, BOOL cachedImage) {
+                cell.pictureImageView.image = image;
+                if (!cachedImage && image) {
                     cell.pictureImageView.alpha = 0.0;
                     [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                         cell.pictureImageView.alpha = 1.0;

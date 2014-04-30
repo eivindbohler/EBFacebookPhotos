@@ -63,16 +63,17 @@
     EBPhotoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
 
     NSDictionary *photo = _photos[indexPath.row];
-    cell.pictureSizeLabel.text = [NSString stringWithFormat:@"Photo size: %u x %u",
-                                  [photo[@"src_width"] unsignedIntegerValue],
-                                  [photo[@"src_height"] unsignedIntegerValue]];
+    cell.pictureSizeLabel.text = [NSString stringWithFormat:@"Photo size: %lu x %lu",
+                                  (unsigned long)[photo[@"src_width"] unsignedIntegerValue],
+                                  (unsigned long)[photo[@"src_height"] unsignedIntegerValue]];
     cell.createdAtLabel.text = [NSString stringWithFormat:@"Created at: %@",
                                 [_dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:[photo[@"created"] doubleValue]]]];
     cell.captionLabel.text = [NSString stringWithFormat:@"Caption: %@", photo[@"caption"]];
     NSString *urlString = photo[@"src"];
     NSURL *url = [NSURL URLWithString:urlString];
     if ([cell.pictureImageView isImageWithURLNew:url]) {
-        [cell.pictureImageView setImageWithURL:url placeholderImage:nil success:^(BOOL cachedImage){
+        [cell.pictureImageView setImageWithURL:url placeholderImage:nil success:^(UIImage *image, BOOL cachedImage) {
+            cell.pictureImageView.image = image;
             if (!cachedImage) {
                 cell.pictureImageView.alpha = 0.0;
                 [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
