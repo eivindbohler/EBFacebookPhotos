@@ -26,7 +26,6 @@
 		8397655216810C1A00621378 /* EBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8397654E16810C1A00621378 /* EBAppDelegate.m */; };
 		8397655316810C1A00621378 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8397654F16810C1A00621378 /* main.m */; };
 		8397655A16810E1500621378 /* EBLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8397655916810E1500621378 /* EBLoginViewController.m */; };
-		83EA77AB170108E200D97EE3 /* Pods.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 83EA77AA170108E100D97EE3 /* Pods.xcconfig */; };
 		83EA77AD17010AFA00D97EE3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83EA77AC17010AFA00D97EE3 /* CoreGraphics.framework */; };
 		83EA77B017010C7C00D97EE3 /* EBFacebookPhotos.m in Sources */ = {isa = PBXBuildFile; fileRef = 839764EE168108B600621378 /* EBFacebookPhotos.m */; };
 /* End PBXBuildFile section */
@@ -274,7 +273,7 @@
 		839764771680F5E000621378 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Eivind R. Bohler";
 			};
 			buildConfigurationList = 8397647A1680F5E000621378 /* Build configuration list for PBXProject "EBFacebookPhotos" */;
@@ -304,7 +303,6 @@
 				8397653C16810BF900621378 /* Default.png in Resources */,
 				8397653D16810BF900621378 /* Default@2x.png in Resources */,
 				8397654B16810C1200621378 /* MainStoryboard.storyboard in Resources */,
-				83EA77AB170108E200D97EE3 /* Pods.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
